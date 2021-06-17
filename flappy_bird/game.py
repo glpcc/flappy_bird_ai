@@ -12,9 +12,14 @@ for i in range(4):
     pipes.append(Pipe(500 + 300*i,init_height))
     init_height = pipes[-1].y
 
-pj = Bird((0,255,0))
+birds = [Bird([0,255,0]) for i in range(1)]
 
-
+def check_colissions(birds,pipes):
+    for pipe in pipes:
+        if -50 < pipe.x - 100 < 100:
+            for i in range(len(birds)):
+                if birds[i].y+50 > pipe.y+pipe.opening/2 or birds[i].y-50 < pipe.y-pipe.opening/2:
+                    birds.pop(i) 
 while runnig:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -27,15 +32,16 @@ while runnig:
             i.restart()
 
     if (pygame.key.get_pressed()[K_SPACE] and not pressed):
-        pj.jump()
+        for i in birds: i.jump()
         pressed = True
     elif not pygame.key.get_pressed()[K_SPACE]:
         pressed = False
-    pj.update()
-
-    pj.draw(canvas)
+    for i in birds: i.update()
+    for i in birds: i.draw(canvas)
+    check_colissions(birds,pipes)
 
     pygame.draw.rect(canvas,(255,255,255),(0,800,1000,1000))
     pygame.display.flip()
+
 
 pygame.quit()
