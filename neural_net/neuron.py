@@ -10,7 +10,7 @@ class Neuron():
         self.value = 0
         self.prev_connections = prev_connections  #this will be an array of the neurons that connect to this one
         self.weights = [1 for i in range(len(prev_connections))] #an array of the wieghts (def=1) that will multiply the values of the previous connections
-        self.biases = [1 for i in range(len(prev_connections))] # the array of biases
+        self.biases = [0 for i in range(len(prev_connections))] # the array of biases
 
     def change_weights_and_biases(self,weights,biases):
         if len(weights) == len(self.weights) and len(biases) == len(self.biases):

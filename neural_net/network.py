@@ -30,9 +30,11 @@ class Network():
                 neuron.calculate_value()
 
     def show_final_values(self):
-        print('the values are: \n')
-        for neuron in self.network[-1]:
-            print(str(neuron.id) + ':' + str(neuron.value))
+        # print('the values are: \n')
+        # for neuron in self.network[-1]:
+        #     print(str(neuron.id) + ':' + str(neuron.value))
+            
+        return [neuron.value for neuron in self.network[-1]]
     
     def show_all_values(self):
         for i in range(len(self.network)):
@@ -46,3 +48,23 @@ class Network():
                 new_weights = [random.uniform(neuron.weights[i]-amount_of_changeW,neuron.weights[i]+amount_of_changeW) for i in range(len(neuron.weights))]
                 new_biases = [random.uniform(neuron.biases[i]-amount_of_changeB,neuron.biases[i]+amount_of_changeB) for i in range(len(neuron.biases))]
                 neuron.change_weights_and_biases(new_weights,new_biases)
+    def set_neuron_wb(self,network_weights,network_biases):
+        for layer in range(len(self.network)):
+            for neuron in range(len(self.network[layer])):
+                self.network[layer][neuron].weights = network_weights[layer][neuron]
+                self.network[layer][neuron].biases = network_biases[layer][neuron]
+
+    def get_network_wb(self):
+        network_weights = []
+        network_biases = []
+        for layer in self.network:
+            layer_weights = []
+            layer_biases = []
+            for neuron in layer:
+                neuron_weights = neuron.weights
+                neuron_biases = neuron.biases
+                layer_weights.append(neuron_weights)
+                layer_biases.append(neuron_biases)
+            network_weights.append(layer_weights)
+            network_biases.append(layer_biases)
+        return network_weights,network_biases
