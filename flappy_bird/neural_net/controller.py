@@ -1,6 +1,7 @@
 from typing import ChainMap
-from network import Network
+from neural_net.network import Network
 import math
+import sys
 class Controller():
     def __init__(self):
         self.networks = []
@@ -29,26 +30,28 @@ class Controller():
             network.set_neuron_wb(wieghts,biases)
         
     def show_networks_values(self):
-
         return [network.show_final_values() for network in self.networks]
 
 
-contr = Controller()
-contr.create_networks(10,1,1,1,1)
-change_amount = 10
-winner_w,winner_b = contr.networks[0].get_network_wb()
-for i in range(50):
-    contr.change_networks_neurons(change_amount,0)
-    contr.networks[0].set_neuron_wb(winner_w,winner_b)
-    contr.calculate_values([i+5])
-    results  = contr.show_networks_values()
-    results = [abs(j[0]-(i+5)*3) for j in results]
-    winner_result = min(results)
-    winner_index = results.index(min(results))
-    winner_w,winner_b = contr.networks[winner_index].get_network_wb()
-    contr.set_networks_wb(winner_w,winner_b)
-    change_amount = winner_result
-    print(f"the winner result was: {winner_result} with value {i+5} and change amount {change_amount}")
+
+sys.path.append(".")
+
+# contr = Controller()
+# contr.create_networks(10,1,1,1,1)
+# change_amount = 10
+# winner_w,winner_b = contr.networks[0].get_network_wb()
+# for i in range(50):
+#     contr.change_networks_neurons(change_amount,0)
+#     contr.networks[0].set_neuron_wb(winner_w,winner_b)
+#     contr.calculate_values([i+5])
+#     results  = contr.show_networks_values()
+#     results = [abs(j[0]-(i+5)*3) for j in results]
+#     winner_result = min(results)
+#     winner_index = results.index(min(results))
+#     winner_w,winner_b = contr.networks[winner_index].get_network_wb()
+#     contr.set_networks_wb(winner_w,winner_b)
+#     change_amount = winner_result
+#     print(f"the winner result was: {winner_result} with value {i+5} and change amount {change_amount}")
 
 
 

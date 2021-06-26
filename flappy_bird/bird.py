@@ -2,6 +2,7 @@ import pygame
 
 class Bird():
     def __init__(self,color):
+        self.score = 0
         self.color = color
         self.y = 500
         self.vel = 0

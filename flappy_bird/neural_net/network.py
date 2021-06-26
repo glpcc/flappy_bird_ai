@@ -1,7 +1,8 @@
 
-from neuron import Neuron
+from neural_net.neuron import Neuron
 import random
-
+import sys
+import math
 # NETWORK CLASS
 class Network():
     def __init__(self,num_of_first_neurons,first_neuron_id):
@@ -34,7 +35,7 @@ class Network():
         # for neuron in self.network[-1]:
         #     print(str(neuron.id) + ':' + str(neuron.value))
             
-        return [neuron.value for neuron in self.network[-1]]
+        return [math.tanh(neuron.value*0.2) for neuron in self.network[-1]]
     
     def show_all_values(self):
         for i in range(len(self.network)):
@@ -68,3 +69,5 @@ class Network():
             network_weights.append(layer_weights)
             network_biases.append(layer_biases)
         return network_weights,network_biases
+    
+sys.path.append(".")
